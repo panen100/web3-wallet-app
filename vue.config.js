@@ -10,23 +10,27 @@
 //   },
 // })
 
+const webpack = require("webpack");
 const { defineConfig } = require("@vue/cli-service");
-// 引入插件
 const NodePolyfillWebpackPlugin = require("node-polyfill-webpack-plugin");
-// vant
-const { VantResolver } = require('unplugin-vue-components/resolvers');
-const ComponentsPlugin = require('unplugin-vue-components/webpack');
+const { VantResolver } = require("unplugin-vue-components/resolvers");
+const ComponentsPlugin = require("unplugin-vue-components/webpack");
+
 module.exports = defineConfig({
   transpileDependencies: true,
   configureWebpack: {
     plugins: [
+      new webpack.ProvidePlugin({
+        process: "process/browser",
+      }),
       new NodePolyfillWebpackPlugin(),
-      ComponentsPlugin({ resolvers: [VantResolver()]}),
+      ComponentsPlugin({ resolvers: [VantResolver()] }),
     ],
+    resolve: {
+      fallback: {
+        stream: require.resolve("stream-browserify"),
+        crypto: require.resolve("crypto-browserify"),
+      },
+    },
   },
 });
-
-
-
-
-

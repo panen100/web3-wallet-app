@@ -9,6 +9,6 @@ import ButtonVue from "./components/Button.vue";
 
 <style lang="less">
 body {
-  padding: 10px;
+  padding: 20px;
 }
 </style>
